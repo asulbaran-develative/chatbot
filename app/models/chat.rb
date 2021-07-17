@@ -14,6 +14,7 @@ class Chat < ApplicationRecord
     state :utm
     state :uf
     state :cpt
+    state :deposits
 
     event :greetings do
       transitions from: :menu, to: :greetings

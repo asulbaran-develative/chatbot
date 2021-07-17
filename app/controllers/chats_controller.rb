@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Controlador de chats
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[show edit update destroy]
 
@@ -6,6 +9,8 @@ class ChatsController < ApplicationController
   end
 
   def new
+    redirect_to new_user_session_path and return if current_user.nil?
+
     @chat = current_user.chat.create
     @welcome_message = 'Hola, soy un chatbot y tratare de ayudarte con tus consultas, '\
                        'aunque soy muy joven ya tengo opciones programadas. <br>'\

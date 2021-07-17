@@ -43,7 +43,7 @@ module ChatRequest
                'uf' => Chile::EconomicIndicators::Indicator.show[:uf],
                'cpt' => Chile::EconomicIndicators::Indicator.show[:text] }.freeze
 
-  # obtener respuestas segun estadomenu
+  # obtener respuestas segun estado menu
   class State
     def self.show(current_user, message)
       current_chat = current_user.chat.last
@@ -55,8 +55,20 @@ module ChatRequest
         transition_state(current_chat, trans)
       elsif current_chat.state != 'menu' && message =~ /menu/i
         transition_state(current_chat, 'menu!')
+      elsif deposit?(message)
+        return CustomersServices::Deposits.show(message) if current_chat.state =~ /check_deposit/
+      elsif paper_rolls_request?(message)
+        return CustomersServices::SalesPaper.buy(message) if current_chat.state =~ /paper_rolls_request/
       end
       RESPONSE[current_chat.state]
+    end
+
+    def self.deposit?(message)
+      message =~ %r{\d{8}-[A-Z, 0-9]/\d{2}-\d{2}-\d{4}}
+    end
+
+    def self.paper_rolls_request?(message)
+      message =~ %r{\d{8}-[A-Z, 0-9]/\w.*\s.*\w/\d{1,2}}
     end
 
     def self.transition_state(chat, trans)

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Crear modelo para los chats
 class CreateChats < ActiveRecord::Migration[6.1]
   def change
     create_table :chats do |t|
