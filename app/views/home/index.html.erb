@@ -1,5 +1,2 @@
 <% name = current_user.present? ? "Bienvendo, #{current_user.email.partition('@').first}" : 'Debe iniciar sesión' %>
 <h4><%= name %> </h4>
-<%if current_user.present?%>
-  <input type="text">
-<%end%>

@@ -1,0 +1,13 @@
+<%= form_for(@chat, remote: true) do |form| %>
+  <div class="field">
+    <strong><%= form.label 'Ingrese Mensaje' %></strong>
+    <div class='row col-md-3'>
+      <%= form.text_field :message, value: '', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag 'Enviar',   class: "btn btn-primary"%>
+  </div>
+<% end %>
+

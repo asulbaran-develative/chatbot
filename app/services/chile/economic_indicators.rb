@@ -9,11 +9,7 @@ module Chile
         uri = URI(ENV['url_api_indicators_chile'])
         response = Net::HTTP.get_response(uri)
         if response.code.to_i == 200
-          begin
-            response_data(response)
-          rescue JSON::ParserError
-            status_error(500)
-          end
+          response_data(response)
         else
           status_error(400)
         end
@@ -21,12 +17,17 @@ module Chile
         status_error(500)
       end
 
-      def response_data(response)
+      def self.response_data(response)
         body_parse = JSON.parse(response.body)
         usd = body_parse['dolar']['valor']
         utm = body_parse['utm']['valor']
         uf = body_parse['uf']['valor']
-        { status: 'OK', code: 200, text: "USD: #{usd}, UTM: #{utm}, UF: #{uf}" }
+        { status: 'OK', code: 200, text: "<strong>USD<strong>: #{usd}, "\
+                                         "<strong>UTM:</strong> #{utm}, "\
+                                         "<strong>UF:</strong> #{uf}",
+          utm: "<strong>UTM:</strong> #{utm}", uf: "<strong>UF:</strong> #{uf}" }
+      rescue JSON::ParserError
+        status_error(500)
       end
 
       def self.status_error(code)
