@@ -19,11 +19,15 @@ module CustomersServices
     end
 
     def self.generate_invoice(customer, quantity, amount, address)
-      customer.invoices.create(quantity: quantity, description: 'Rollo de papel',
-                               amount: amount, delivery_address: address)
-      'Pedido realizado.<br>'\
+      inv = customer.invoices.create(quantity: quantity, description: 'Rollo de papel',
+                                     amount: amount, delivery_address: address)
+      invoice_link = InvoiceService.generate(inv)
+      '<strong>Pedido realizado.</strong><br>'\
       "#{quantity} Rollos de Papel, Monto UND: 700 "\
-      "Total del pedido:  #{amount}"
+      "Total del pedido:  #{amount}<br>"\
+      '<strong>Puede descarcar la factura aqui:</strong><br>'\
+      "<a href='#{invoice_link}' download>"\
+      "#{invoice_link.split('/').last.upcase}</a>"
     end
 
     def self.balance?(deposits, amount)

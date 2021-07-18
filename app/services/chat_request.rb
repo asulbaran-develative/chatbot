@@ -45,15 +45,15 @@ module ChatRequest
 
   # obtener respuestas segun estado menu
   class State
+    # rubocop:disable Metrics/AbcSize
     def self.show(current_user, message)
       current_chat = current_user.chat.last
-      permits = PERMIT[current_chat.state]
-      locate_permit = permits&.find_index { |p| p.include?(message.downcase) }
-      if locate_permit.present?
+      search_permit = search_local_permit(current_chat, message)
+      if search_permit.present?
         last_state = current_chat.state
-        trans = TRANSITION.dig(last_state, locate_permit)
+        trans = TRANSITION.dig(last_state, search_permit)
         transition_state(current_chat, trans)
-      elsif current_chat.state != 'menu' && message =~ /menu/i
+      elsif menu?(current_chat, message)
         transition_state(current_chat, 'menu!')
       elsif deposit?(message)
         return CustomersServices::Deposits.show(message) if current_chat.state =~ /check_deposit/
@@ -61,6 +61,15 @@ module ChatRequest
         return CustomersServices::SalesPaper.buy(message) if current_chat.state =~ /paper_rolls_request/
       end
       RESPONSE[current_chat.state]
+    end
+
+    def self.search_local_permit(message)
+      permits = PERMIT[current_chat.state]
+      permits&.find_index { |p| p.include?(message.downcase) }
+    end
+
+    def self.menu?(current_chat, message)
+      current_chat.state != 'menu' && message =~ /menu/i
     end
 
     def self.deposit?(message)
@@ -75,4 +84,5 @@ module ChatRequest
       chat.send(trans) if trans.present?
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
