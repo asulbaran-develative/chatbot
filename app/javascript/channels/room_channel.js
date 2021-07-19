@@ -21,12 +21,12 @@ consumer.subscriptions.create("RoomChannel", {
                </div>`
 
     send_data(body);               
+    document.getElementById('chat_message').value= ''
   }
 });
 
 function send_data(body){
   document.getElementById("new_message").innerHTML += body;
-  document.getElementById('chat_message').value= ''
   var myDiv = document.getElementById("main_body");
   myDiv.scrollTop = myDiv.scrollHeight;
   stopCount() ;

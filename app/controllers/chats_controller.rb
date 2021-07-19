@@ -16,7 +16,7 @@ class ChatsController < ApplicationController
     @welcome_message = 'Hola, soy un bot y tratare de ayudarte con tus consultas, '\
                        'aunque soy muy joven ya tengo opciones programadas. <br>'\
                        'Puede escribir <strong>menu</strong> para ver las opciones.<br>'\
-                       'Tambien puede enviar menu en cualquier momento para regrar '\
+                       'Tambien puede enviar menu en cualquier momento para regresar '\
                        'a las opciones principales<br>'
   end
 

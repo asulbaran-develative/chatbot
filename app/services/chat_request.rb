@@ -36,9 +36,9 @@ module ChatRequest
                'consult_economic_indicators' => '<strong>Seleccionó Consulta Indicadores Económicos. </strong><br>'\
                                                  'Por favor ingrese que desea consultar: '\
                                                  'Las opciones son: <br>'\
-                                                 'Unidad de fomento (UF).<br>'\
-                                                 'Unidad Tributaria Mensual (UTM).<br>'\
-                                                 'Completo (CPT).',
+                                                 '<strong>UF</strong> = Unidad de fomento.<br>'\
+                                                 '<strong>UTM</strong> = Unidad Tributaria Mensual.<br>'\
+                                                 '<strong>CPT</strong> = USD, UTM y UF.',
                'utm' => Chile::EconomicIndicators::Indicator.show[:utm],
                'uf' => Chile::EconomicIndicators::Indicator.show[:uf],
                'cpt' => Chile::EconomicIndicators::Indicator.show[:text] }.freeze
