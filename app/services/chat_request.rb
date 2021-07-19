@@ -18,13 +18,13 @@ module ChatRequest
                               'Puedes enviarme la palabra "menu" para darle las '\
                               'opciones disponibles.',
                'menu' => "Por favor escoja una opción: <br> #{MENU_OPTIONS.join('<br>')} ",
-               'check_deposit' => '<strong>Selecciono Consulta de Depósito.</strong> <br>'\
+               'check_deposit' => '<strong>Seleccionó Consulta de Depósito.</strong> <br>'\
                                   'Por favor ingrese Rut y Fecha, <br>'\
                                   'Ejemplo: 123456<strong>/</strong>01-10-2021 <br>'\
                                   'Es importante que el formato de la fecha sea '\
                                   'dd-mm-yyyy, es decir dia-mes-año y el separador '\
                                   'entre Rut y Feha debe ser un <strong>/</strong>',
-               'paper_rolls_request' => '<strong>Selecciono Solicitud Rollos de Pape. </strong> <br>'\
+               'paper_rolls_request' => '<strong>Seleccionó Solicitud Rollos de Pape. </strong> <br>'\
                                         'Por favor ingrese Rut, dirección de despacho '\
                                         'y la cantidad de rollos <br>'\
                                         'Ejemplo: 1233466<strong>/</strong>Santiago de chile<strong>/</strong>2 <br>'\
@@ -33,7 +33,7 @@ module ChatRequest
                                         'de rollos a solicitar <br>'\
                                         'El separador entre Rut, Direccion y Cantidad debe '\
                                         'ser un <strong>/</strong>',
-               'consult_economic_indicators' => '<strong>Selecciono Consulta Indicadores Económicos. </strong><br>'\
+               'consult_economic_indicators' => '<strong>Seleccionó Consulta Indicadores Económicos. </strong><br>'\
                                                  'Por favor ingrese que desea consultar: '\
                                                  'Las opciones son: <br>'\
                                                  'Unidad de fomento (UF).<br>'\
@@ -63,7 +63,7 @@ module ChatRequest
       RESPONSE[current_chat.state]
     end
 
-    def self.search_local_permit(message)
+    def self.search_local_permit(current_chat, message)
       permits = PERMIT[current_chat.state]
       permits&.find_index { |p| p.include?(message.downcase) }
     end
@@ -77,7 +77,7 @@ module ChatRequest
     end
 
     def self.paper_rolls_request?(message)
-      message =~ %r{\d{8}-[A-Z, 0-9]/\w.*\s.*\w/\d{1,2}}
+      message =~ %r{\d{8}-[A-Za-z, 0-9]/\w.*\w/\d{1,2}}
     end
 
     def self.transition_state(chat, trans)

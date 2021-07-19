@@ -12,7 +12,7 @@ class ChatsController < ApplicationController
     redirect_to new_user_session_path and return if current_user.nil?
 
     @chat = current_user.chat.create
-    @welcome_message = 'Hola, soy un chatbot y tratare de ayudarte con tus consultas, '\
+    @welcome_message = 'Hola, soy un bot y tratare de ayudarte con tus consultas, '\
                        'aunque soy muy joven ya tengo opciones programadas. <br>'\
                        'Puede escribir <strong>menu</strong> para ver las opciones.<br>'\
                        'Tambien puede enviar menu en cualquier momento para regrar '\
@@ -24,9 +24,9 @@ class ChatsController < ApplicationController
   def update
     @message = @chat.message.new(chat_params)
     if @message.save
-      ActionCable.server.broadcast 'room_channel', { content: chat_params['message'] }
+      ActionCable.server.broadcast 'room_channel', { content: chat_params['message'], type: 'send' }
       response = ChatRequest::State.show(current_user, chat_params['message'].squish)
-      ActionCable.server.broadcast 'room_channel', { content: response }
+      ActionCable.server.broadcast 'room_channel', { content: response, type: 'response' }
     end
     head 200, content_type: 'application/json'
   end

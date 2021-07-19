@@ -13,7 +13,7 @@ module CustomersServices
 
       amount = (700 * quantity.to_i)
       deposits = customer.deposits.where(date_of_process: (Time.now + 1.day).all_day)
-      return 'Saldo insuficiente.<br>' if balance?(deposits, amount)
+      return 'Saldo insuficiente.<br>' unless balance?(deposits, amount)
 
       generate_invoice(customer, quantity, amount, address)
     end
