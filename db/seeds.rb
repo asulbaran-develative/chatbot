@@ -17,9 +17,9 @@ cm3 = Customer.create(rut: '123456789-C', name: 'Maria', last_name: 'Perez',
                       address: 'Calle 47, Santia de Chile', phone: '+567861507',
                       balance: 0, state: 'Activo')
 
-cm1.deposit.create(description: 'Comisiones por ventas', amount: 120_000,
-                   date_of_process: Time.now, state: 'Pendiente')
-cm2.deposit.create(description: 'Comisiones por ventas', amount: 220_000,
-                   date_of_process: (Time.now + 1.day), state: 'Pendiente')
-cm3.deposit.create(description: 'Comisiones por ventas', amount: 500,
-                   date_of_process: (Time.now + 1.day), state: 'Pendiente')
+cm1.deposits.create(description: 'Comisiones por ventas', amount: 120_000,
+                    date_of_process: Time.now, state: 'Pendiente')
+cm2.deposits.create(description: 'Comisiones por ventas', amount: 220_000,
+                    date_of_process: (Time.now + 1.day), state: 'Pendiente')
+cm3.deposits.create(description: 'Comisiones por ventas', amount: 500,
+                    date_of_process: (Time.now + 1.day), state: 'Pendiente')
