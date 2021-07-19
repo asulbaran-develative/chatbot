@@ -14,5 +14,7 @@ class InvoiceService
       file << pdf
     end
     "/pdfs/invoices/#{file_name}"
+  rescue StandardError => _e
+    'No se pudo generar pdf, consulte con soporte tecnico.'
   end
 end

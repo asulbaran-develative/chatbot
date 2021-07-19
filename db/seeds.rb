@@ -7,13 +7,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-cm1 = Customer.create(rut: '123456789-A', name: 'Pedro', last_name: 'Perez',
+cm1 = Customer.create(rut: '12345678-A', name: 'Pedro', last_name: 'Perez',
                       address: 'Calle 40, Santia de Chile', phone: '+567861505',
                       balance: 0, state: 'Activo')
-cm2 = Customer.create(rut: '123456789-B', name: 'Juan', last_name: 'Perez',
+cm2 = Customer.create(rut: '12345678-B', name: 'Juan', last_name: 'Perez',
                       address: 'Calle 45, Santia de Chile', phone: '+567861506',
                       balance: 0, state: 'Activo')
-cm3 = Customer.create(rut: '123456789-C', name: 'Maria', last_name: 'Perez',
+cm3 = Customer.create(rut: '12345678-C', name: 'Maria', last_name: 'Perez',
                       address: 'Calle 47, Santia de Chile', phone: '+567861507',
                       balance: 0, state: 'Activo')
 
