@@ -24,7 +24,7 @@ module ChatRequest
                                   'Es importante que el formato de la fecha sea '\
                                   'dd-mm-yyyy, es decir dia-mes-año y el separador '\
                                   'entre Rut y Feha debe ser un <strong>/</strong>',
-               'paper_rolls_request' => '<strong>Seleccionó Solicitud Rollos de Pape. </strong> <br>'\
+               'paper_rolls_request' => '<strong>Seleccionó Solicitud Rollos de Papel. </strong> <br>'\
                                         'Por favor ingrese Rut, dirección de despacho '\
                                         'y la cantidad de rollos <br>'\
                                         'Ejemplo: 1233466<strong>/</strong>Santiago de chile<strong>/</strong>2 <br>'\
@@ -43,12 +43,13 @@ module ChatRequest
                'uf' => Chile::EconomicIndicators::Indicator.show[:uf],
                'cpt' => Chile::EconomicIndicators::Indicator.show[:text] }.freeze
 
-  # obtener respuestas segun estado menu
+  # Obtener respuestas segun estado menu
   class State
     # rubocop:disable Metrics/AbcSize
     def self.show(current_user, message)
       current_chat = current_user.chat.last
       search_permit = search_local_permit(current_chat, message)
+
       if search_permit.present?
         last_state = current_chat.state
         trans = TRANSITION.dig(last_state, search_permit)
@@ -60,6 +61,7 @@ module ChatRequest
       elsif paper_rolls_request?(message)
         return CustomersServices::SalesPaper.buy(message) if current_chat.state =~ /paper_rolls_request/
       end
+
       RESPONSE[current_chat.state]
     end
 

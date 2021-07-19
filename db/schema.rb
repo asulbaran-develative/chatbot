@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_16_190841) do
+ActiveRecord::Schema.define(version: 2021_07_17_115054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,40 @@ ActiveRecord::Schema.define(version: 2021_07_16_190841) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "rut"
+    t.string "name"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone"
+    t.float "balance"
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "deposits", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.string "description"
+    t.float "amount"
+    t.datetime "date_of_process"
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_deposits_on_customer_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.integer "quantity"
+    t.string "description"
+    t.float "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "delivery_address"
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -45,5 +79,7 @@ ActiveRecord::Schema.define(version: 2021_07_16_190841) do
   end
 
   add_foreign_key "chats", "users"
+  add_foreign_key "deposits", "customers"
+  add_foreign_key "invoices", "customers"
   add_foreign_key "messages", "chats"
 end

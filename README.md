@@ -18,10 +18,10 @@ Things you may want to cover:
   gem 'ftools' 
 
 * Configuration
-  - git clone https://sulbaran@bitbucket.org/sulbaran/chatbot.git
+  - git clone https://github.com/asulbaran-develative/chatbot
     If you ruby version is'nt 3.0, you can install RVM: 
       - https://rvm.io/rvm/install
-      - rvm install 3.0
+      - rvm install 3.0.0
   - bundle install   
   - apt-get install postgresql libpq-dev  (Optional)
   - sudo su postgres

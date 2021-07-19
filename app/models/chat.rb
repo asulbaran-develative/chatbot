@@ -3,7 +3,7 @@
 class Chat < ApplicationRecord
   include AASM
   belongs_to :user
-  has_many :message
+  has_many :messages
 
   aasm column: 'state' do
     state :greetings, initial: true

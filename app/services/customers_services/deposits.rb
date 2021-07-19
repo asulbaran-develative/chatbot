@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# servicio paras consultar depositos
+# Servicio paras consultar depositos
 module CustomersServices
-  # obtener depositos
+  # Obtener depositos
   class Deposits
     def self.show(data)
       rut, date = data.split('/')
@@ -24,6 +24,7 @@ module CustomersServices
         message += "Descripción: #{deposit.description} / "\
                    "Fecha: #{deposit_date} / Monto: #{deposit.amount} <br>"
       end
+
       message
     end
 

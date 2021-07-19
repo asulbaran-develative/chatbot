@@ -13,27 +13,21 @@ class ChatsController < ApplicationController
 
     session['current_user'] = current_user.id
     @chat = current_user.chat.create
-    @welcome_message = 'Hola, soy un bot y tratare de ayudarte con tus consultas, '\
-                       'aunque soy muy joven ya tengo opciones programadas. <br>'\
-                       'Puede escribir <strong>menu</strong> para ver las opciones.<br>'\
-                       'Tambien puede enviar menu en cualquier momento para regresar '\
-                       'a las opciones principales<br>'
+    @welcome_message = I18n.t(:hello)
   end
 
   def edit; end
 
   def update
-    @message = @chat.message.new(chat_params)
-    if @message.save
-      send_message(chat_params['message'], 'send')
-      response = ChatRequest::State.show(current_user, chat_params['message'].squish)
-      send_message(response, 'response')
-    end
-    head 200, content_type: 'application/json'
-  end
+    @message = @chat.messages.new(chat_params)
 
-  def send_message(message, type)
-    ActionCable.server.broadcast "room_channel-#{current_user.id}", { content: message, type: type }
+    if @message.save
+      @message.publish!(current_user, 'send')
+      response = ChatRequest::State.show(current_user, chat_params['message'].squish)
+      @message.publish_response!(current_user, response)
+    end
+
+    head 200, content_type: 'application/json'
   end
 
   private

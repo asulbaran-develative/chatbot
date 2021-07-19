@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PdfFormats
-  # servicio paras generar string para una factura
+  # Servicio paras generar string para una factura
   class InvoiceServices
     # rubocop:disable Metrics/MethodLength
     def self.data(invoice)

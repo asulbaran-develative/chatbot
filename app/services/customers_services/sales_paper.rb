@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# servicio paras la compra de rollos de papel
+# Servicio paras la compra de rollos de papel
 module CustomersServices
-  # obtener depositos
+  # Obtener depositos
   class SalesPaper
     def self.buy(data)
       rut, address, quantity = data.split('/')
@@ -19,9 +19,12 @@ module CustomersServices
     end
 
     def self.generate_invoice(customer, quantity, amount, address)
-      inv = customer.invoices.create(quantity: quantity, description: 'Rollo de papel',
-                                     amount: amount, delivery_address: address)
+      inv = customer.invoices.create(
+        quantity: quantity, description: 'Rollo de papel',
+        amount: amount, delivery_address: address
+      )
       invoice_link = InvoiceService.generate(inv)
+
       '<strong>Pedido realizado.</strong><br>'\
       "#{quantity} Rollos de Papel, Monto UND: 700 "\
       "Total del pedido:  #{amount}<br>"\
