@@ -35,7 +35,7 @@ function send_data(body){
 var timer_automatic;
 
 function startCount() {
-  timer_automatic = setTimeout(function(){ remember_data() }, 20000);
+  timer_automatic = setTimeout(function(){ remember_data() }, 30000);
 }
 
 function stopCount() {
